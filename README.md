@@ -76,4 +76,4 @@ Where the above helper functions are called in detect_cars.annotate_image()
   
   To further trying to take advantage of historical data, the final pipeline implmted in annotate_image() is actually implemented in a class. Hence some more methods of averaging and smoothing of the results can also be experimented to make the pipeline more robust
   
-  It could also be possible to implement the classifier with a different algorith. For example, deep learning could replace SVM here to provide a more robust identificatino of car pixles.
+  The result is not exactly robust as there are frames that not the complete vehicle body is identified in a bouding box. Also the bounding boxes are sometimes flickering. It could also be possible to implement the classifier with a different algorith. For example, deep learning could replace SVM here to provide a more robust identificatino of car pixles.
