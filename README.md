@@ -30,8 +30,16 @@ I have decided to use 4 tiers of sliding windows. Knowing that we are only inter
   2. 64x64: overlap 0.7
   3. 96x96: overlap 0.75
   4. 128x128: overlap 0.75
-  
+
+The code to generate sliding window frames is written in slide_window() function.
+
+For each of the search windows, classifier features is extracted and used to decide if the windowed image is categorized as a vehicle ornot. In general the search_windows() function runs the following logic pipeline 
+  1. Calls slide_window() to extract the windowed image
+  2. Feeds the windowed image to single_img_features() to generate features for the classifier
+  3. Features generated is then fed to the classifier clf.predict() to determine if it is a match or now
+
 ## 4. Show some examples of test images to demonstrate how your pipeline is working. How did you optimize the performance of your classifier?
+Classifier performance is optimized by pre-transforming all the colours if needed before feeding to the 3 major feature generation algorithm. A further optimization is possible if hog features is also pre calculated for each image instead of each windowed image, but this is not implemented in this version yet. 
 
 
 ## 5. Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
@@ -49,4 +57,5 @@ Where the above helper functions are called in detect_cars.annotate_image()
 
 ## 7. Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
   A lot of time was spend trial and error and tuning varialbe defined in secion *Definition of Classifier Variables* of the p5.idynb
-  Deciding on the windows to be used for the pipeline also took quite a bit of effort
+  Deciding on the windows to be used for the pipeline also took quite a bit of effort. 
+  To further trying to take advantage of historical data, the final pipeline implmted in annotate_image() is actually implemented in a class. Hence some methods of averaging and smoothing of the results can also be experimented.
