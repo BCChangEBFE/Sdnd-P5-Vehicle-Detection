@@ -40,9 +40,9 @@ Linear SVM is chosen as my classifier in this project. Its relatively high accur
 
 I have decided to use 4 tiers of sliding windows. Knowing that we are only interested in the bottom half of the image, I divide that into 4 different distance categories. For each of the 4 categories I estimated the size of a vehicle to determine the windows size needed. Next, to decide on how much overlap is needed was more of a trial and error process. Having too much overlap would be slow and create a heat map with too large of an excitation number in many pixels. Larger windows needs to have more ovelap to allow for higher heat map excitation to identify larger cars. Smaller windows can get by with less overlaps since the slightly larger windows would tend to trigger a vehicle classification match as well. The four categories of windows are.  
   1. 32x32: overlap 0.5
-  2. 64x64: overlap 0.7
+  2. 64x64: overlap 0.75
   3. 96x96: overlap 0.75
-  4. 128x128: overlap 0.75
+  4. 128x128: overlap 0.80
 
 The code to generate sliding window frames is written in slide_window() function.
 
