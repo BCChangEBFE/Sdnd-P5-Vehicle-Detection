@@ -40,9 +40,9 @@ Linear SVM is chosen as my classifier in this project. Its relatively high accur
 
 I have decided to use 4 tiers of sliding windows. Knowing that we are only interested in the bottom half of the image, I divide that into 4 different distance categories. For each of the 4 categories I estimated the size of a vehicle to determine the windows size needed. Next, to decide on how much overlap is needed was more of a trial and error process. Having too much overlap would be slow and create a heat map with too large of an excitation number in many pixels. Larger windows needs to have more ovelap to allow for higher heat map excitation to identify larger cars. Smaller windows can get by with less overlaps since the slightly larger windows would tend to trigger a vehicle classification match as well. The four categories of windows are.  
   1. 32x32: overlap 0.5
-  2. 64x64: overlap 0.7
+  2. 64x64: overlap 0.75
   3. 96x96: overlap 0.75
-  4. 128x128: overlap 0.75
+  4. 128x128: overlap 0.80
 
 The code to generate sliding window frames is written in slide_window() function.
 
@@ -54,7 +54,7 @@ For each of the search windows, classifier features is extracted and used to dec
 ## 4. Show some examples of test images to demonstrate how your pipeline is working. How did you optimize the performance of your classifier?
 Classifier performance is optimized by pre-transforming all the colours if needed before feeding to the 3 major feature generation algorithm. A further optimization is possible if hog features is also pre calculated for each image instead of each windowed image, but this is not implemented in this version yet. 
 
-![alt text][image2]
+![alt text][image3]
 
 ## 5. Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 
@@ -76,4 +76,4 @@ Where the above helper functions are called in detect_cars.annotate_image()
   
   To further trying to take advantage of historical data, the final pipeline implmted in annotate_image() is actually implemented in a class. Hence some more methods of averaging and smoothing of the results can also be experimented to make the pipeline more robust
   
-  It could also be possible to implement the classifier with a different algorith. For example, deep learning could replace SVM here to provide a more robust identificatino of car pixles.
+  The result is not exactly robust as there are frames that not the complete vehicle body is identified in a bouding box. Also the bounding boxes are sometimes flickering. It could also be possible to implement the classifier with a different algorith. For example, deep learning could replace SVM here to provide a more robust identificatino of car pixles.
