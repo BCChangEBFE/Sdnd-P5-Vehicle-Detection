@@ -54,7 +54,7 @@ For each of the search windows, classifier features is extracted and used to dec
 ## 4. Show some examples of test images to demonstrate how your pipeline is working. How did you optimize the performance of your classifier?
 Classifier performance is optimized by pre-transforming all the colours if needed before feeding to the 3 major feature generation algorithm. A further optimization is possible if hog features is also pre calculated for each image instead of each windowed image, but this is not implemented in this version yet. 
 
-![alt text][image2]
+![alt text][image3]
 
 ## 5. Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 
