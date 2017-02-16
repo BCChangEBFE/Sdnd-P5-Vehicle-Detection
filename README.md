@@ -10,11 +10,24 @@ Estimate a bounding box for vehicles detected.
 
 Please see https://github.com/BCChangEBFE/Sdnd-P5-Vehicle-Detection/blob/master/p5.ipynb for detailed code with comments.
 
+[//]: # (Image References)
+
+[image1]: ./output_images/HOG_TreeTop_Sky.png "HOG Not Car"
+[image2]: ./output_images/HOG_Car.png "HOG Car"
+[image3]: ./output_images/VehicleSearch.png "Vehicle Search"
+
+[video1]: ./project_result.mp4 "Vehicle Detection Video"
+
+---
+
 ## 1. Explain how (and identify where in your code) you extracted HOG features from the training images. Explain how you settled on your final choice of HOG parameters.
 
 HOG features is extracted per winsow using the function get_hog_features(). This is just the most streight method to extract HOG. 
 All 3 channls from the RGB colour space is used as in input to HOG. 
 From experiment, it is found that using all 3 channels yields a better result. Note that there are some colour spaces such as LUV where feeding all three channels into HOG extraction would cause a numerical error.
+
+![alt text][image1]
+![alt text][image2]
 
 ## 2. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
@@ -41,9 +54,11 @@ For each of the search windows, classifier features is extracted and used to dec
 ## 4. Show some examples of test images to demonstrate how your pipeline is working. How did you optimize the performance of your classifier?
 Classifier performance is optimized by pre-transforming all the colours if needed before feeding to the 3 major feature generation algorithm. A further optimization is possible if hog features is also pre calculated for each image instead of each windowed image, but this is not implemented in this version yet. 
 
+![alt text][image2]
 
 ## 5. Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 
+![alt text][video1]
 
 ## 6. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
   First the bounding boxes are processed into a heatmap; for each time a pixel is included in a bounding box, the pixel get a +1 in the heatmap. The heatmap is then thresholded to retain only pixels with high heatmap excitation number. Next scipy.ndimage.measurements.label() is used to identify and create the resulting bouding vehicle box. The code bloxs corresponding to thie process is implemented in the following small functinos,
@@ -58,4 +73,7 @@ Where the above helper functions are called in detect_cars.annotate_image()
 ## 7. Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
   A lot of time was spend trial and error and tuning varialbe defined in secion *Definition of Classifier Variables* of the p5.idynb
   Deciding on the windows to be used for the pipeline also took quite a bit of effort. 
-  To further trying to take advantage of historical data, the final pipeline implmted in annotate_image() is actually implemented in a class. Hence some methods of averaging and smoothing of the results can also be experimented.
+  
+  To further trying to take advantage of historical data, the final pipeline implmted in annotate_image() is actually implemented in a class. Hence some more methods of averaging and smoothing of the results can also be experimented to make the pipeline more robust
+  
+  It could also be possible to implement the classifier with a different algorith. For example, deep learning could replace SVM here to provide a more robust identificatino of car pixles.
